@@ -18,8 +18,8 @@ public class DAO {
     
     public void Conectar() throws Exception{
        try{
-        Class.forName("com.mysql.jdbc.Driver");
-        cn= DriverManager.getConnection("jdbc:mysql://localhost:3306/ventas?user=root&password=Admin123");
+         Class.forName("com.mysql.jdbc.Driver");
+         cn= DriverManager.getConnection("jdbc:mysql://localhost:3306/ventas?user=root&password=Admin123");
        
        }catch(Exception e){
        throw e;
