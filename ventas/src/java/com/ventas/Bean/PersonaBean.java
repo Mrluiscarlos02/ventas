@@ -6,6 +6,7 @@ import com.ventas.model.Persona;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 
 @ManagedBean
@@ -38,11 +39,18 @@ public class PersonaBean {
     }
    
     
-    public void listar() throws Exception{
+    public void listar(String valor) throws Exception{
         PersonaDAO dao;
         try{
-            dao= new PersonaDAO();
-            lstPersonas= dao.listar();
+            if(valor.equals("F")){
+              if(isPostBack()==false){
+              dao= new PersonaDAO();
+              lstPersonas= dao.listar();  
+              }
+            }else{
+              dao= new PersonaDAO();
+              lstPersonas= dao.listar();             
+            }
         }catch(Exception e){
             throw e;
         }
@@ -62,6 +70,12 @@ public class PersonaBean {
         }catch (Exception e){
             throw e;
         }
+    }
+    
+    private boolean isPostBack(){
+        boolean rpta;
+       rpta=FacesContext.getCurrentInstance().isPostback();
+        return rpta;
     }
     
      public void operar() throws Exception{
@@ -88,7 +102,7 @@ public class PersonaBean {
         try{
             dao= new PersonaDAO();
             dao.registrar(persona);     
-            this.listar();
+            this.listar("V");
         }catch(Exception e){
             throw e;
         }
@@ -100,7 +114,7 @@ public class PersonaBean {
         try{
             dao = new PersonaDAO();
             dao.modificar(persona);
-            this.listar();
+            this.listar("V");
         }catch (Exception e){
             throw e;
         }
@@ -111,7 +125,7 @@ public class PersonaBean {
         try{
             dao = new PersonaDAO();
             dao.eliminar(per);
-            this.listar();
+            this.listar("V");
         }catch (Exception e){
             throw e;
         }
