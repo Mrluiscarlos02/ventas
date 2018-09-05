@@ -27,7 +27,6 @@ public class PersonaDAO extends DAO {
     }
     
     
-    
     public List<Persona> listar() throws Exception{
         List<Persona> lista;
         ResultSet rs;
@@ -64,8 +63,7 @@ public class PersonaDAO extends DAO {
                 pers=new Persona();
                 pers.setCodigo(rs.getInt("codigo"));
                 pers.setNombre(rs.getString("nombre"));
-                pers.setSexo(rs.getString("sexo"));                
-                 
+                pers.setSexo(rs.getString("sexo"));    
             }
         }catch(Exception e){           
             throw e;
@@ -74,9 +72,7 @@ public class PersonaDAO extends DAO {
         }
         return pers;
     }
-          
- 
-    
+         
     public void modificar(Persona per) throws Exception{
         try{
             this.Conectar();
@@ -91,9 +87,7 @@ public class PersonaDAO extends DAO {
             this.Cerrar();
         } 
     }
-    
-           
-        
+     
     public void eliminar(Persona per) throws Exception{
         try{
             this.Conectar();

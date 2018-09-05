@@ -27,18 +27,16 @@ public class PersonaBean {
     public void setLstPersonas(List<Persona> lstPersonas) {
         this.lstPersonas = lstPersonas;
     }
-    
-    
-    public void registrar() throws Exception{
-        PersonaDAO dao;
-        try{
-            dao= new PersonaDAO();
-            dao.registrar(persona);     
-        }catch(Exception e){
-            throw e;
-        }
+
+    public String getAccion() {
+        return accion;
     }
-    
+
+    public void setAccion(String accion) {
+        this.limpiar();
+        this.accion = accion;
+    }
+   
     
     public void listar() throws Exception{
         PersonaDAO dao;
@@ -59,13 +57,45 @@ public class PersonaBean {
                
             if (temp != null) {
                 this.persona = temp;
+                this.accion="Modificar";
             }
         }catch (Exception e){
             throw e;
         }
     }
     
-    public void modificar() throws Exception{
+     public void operar() throws Exception{
+         switch(accion){
+             case "Registrar":
+                 this.registrar();
+                 this.limpiar();
+                break;
+             case "Modificar":
+                 this.modificar();
+                 this.limpiar();
+             break;             
+         }
+     }
+    
+     public void limpiar(){
+         this.persona.setCodigo(0);
+         this.persona.setNombre("");
+         this.persona.setSexo("");
+     }
+     
+    private void registrar() throws Exception{
+        PersonaDAO dao;
+        try{
+            dao= new PersonaDAO();
+            dao.registrar(persona);     
+            this.listar();
+        }catch(Exception e){
+            throw e;
+        }
+    }
+    
+    
+    private void modificar() throws Exception{
         PersonaDAO dao;
         try{
             dao = new PersonaDAO();
@@ -89,4 +119,5 @@ public class PersonaBean {
     
     private Persona persona=new Persona();
     private List<Persona> lstPersonas;
+    private String accion;
 }
