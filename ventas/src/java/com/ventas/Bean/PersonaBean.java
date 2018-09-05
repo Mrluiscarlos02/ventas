@@ -5,11 +5,11 @@ import com.ventas.dao.PersonaDAO;
 import com.ventas.model.Persona;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class PersonaBean {
 
     public Persona getPersona() {
@@ -33,7 +33,7 @@ public class PersonaBean {
         PersonaDAO dao;
         try{
             dao= new PersonaDAO();
-            dao.registrar(persona);
+            dao.registrar(persona);     
         }catch(Exception e){
             throw e;
         }
@@ -46,6 +46,43 @@ public class PersonaBean {
             dao= new PersonaDAO();
             lstPersonas= dao.listar();
         }catch(Exception e){
+            throw e;
+        }
+    }
+    
+    public void leerID(Persona per) throws Exception{
+        PersonaDAO dao;
+        Persona temp;
+        try{
+            dao = new PersonaDAO();
+            temp = dao.leerID(per);
+               
+            if (temp != null) {
+                this.persona = temp;
+            }
+        }catch (Exception e){
+            throw e;
+        }
+    }
+    
+    public void modificar() throws Exception{
+        PersonaDAO dao;
+        try{
+            dao = new PersonaDAO();
+            dao.modificar(persona);
+            this.listar();
+        }catch (Exception e){
+            throw e;
+        }
+    }
+    
+    public void eliminar(Persona per) throws Exception{
+        PersonaDAO dao;
+        try{
+            dao = new PersonaDAO();
+            dao.eliminar(per);
+            this.listar();
+        }catch (Exception e){
             throw e;
         }
     }
