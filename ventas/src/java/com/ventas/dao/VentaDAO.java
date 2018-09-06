@@ -15,12 +15,12 @@ public class VentaDAO extends DAO{
             this.Conectar();
             this.getCn().setAutoCommit(false);
             
-            PreparedStatement st1= this.getCn().prepareStatement("INSERT INTO persona(fecha, codPersona, monto) values(?,?,?)");
-            st1.setDate(1, venta.getFecha());
-            st1.setInt(2, venta.getPersona().getCodigo());
-            st1.setDouble(3, venta.getMonto());
-            st1.executeUpdate();
-            st1.close();
+            PreparedStatement st= this.getCn().prepareStatement("INSERT INTO Venta(fecha, codPersona, monto) values(?,?,?)");
+            st.setDate(1, venta.getFecha());
+            st.setInt(2, venta.getPersona().getCodigo());
+            st.setDouble(3, venta.getMonto());
+            st.executeUpdate();
+            st.close();
             
             PreparedStatement st2= this.getCn().prepareStatement("SELECT codigo FROM `venta` order by codigo DESC limit 1"); //capturar el ultimo ID
             ResultSet rs;
