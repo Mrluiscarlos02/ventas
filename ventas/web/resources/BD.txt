@@ -1,0 +1,11 @@
+﻿CREATE TABLE `ventas`.`persona` ( `codigo` TINYINT(4) NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(20) NOT NULL , `sexo` CHAR(1) NOT NULL , PRIMARY KEY (`codigo`)) ENGINE = InnoDB;
+CREATE TABLE `ventas`.`producto` ( `codigo` INT(11) NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(150) NOT NULL , `precio` DECIMAL(7,2) NOT NULL , PRIMARY KEY (`codigo`)) ENGINE = InnoDB;
+CREATE TABLE `ventas`.`venta` ( `codigo` INT(11) NOT NULL AUTO_INCREMENT , `fecha` TIMESTAMP NOT NULL , `codPersona` TINYINT(4) NOT NULL , `monto` DECIMAL(7,2) NOT NULL , PRIMARY KEY (`codigo`)) ENGINE = InnoDB;
+CREATE TABLE `ventas`.`detalleventa` ( `codigo` INT(11) NOT NULL , `codVenta` INT(11) NOT NULL , `codProducto` INT(11) NOT NULL , `cantidad` TINYINT(4) NOT NULL , PRIMARY KEY (`codigo`)) ENGINE = InnoDB;
+ALTER TABLE `venta` ADD FOREIGN KEY (`codPersona`) REFERENCES `persona`(`codigo`) ON DELETE CASCADA ON UPDATE CASCADE;
+ALTER TABLE `detalleventa` ADD FOREIGN KEY (`codventa`) REFERENCES `venta`(`codigo`) ON DELETE CASCADA ON UPDATE CASCADE;
+ALTER TABLE `detalleventa` ADD FOREIGN KEY (`codProducto`) REFERENCES `producto`(`codigo`) ON DELETE CASCADA ON UPDATE CASCADE;
+ALTER TABLE `detalleventa` CHANGE `codigo` `codigo` INT(11) NOT NULL AUTO_INCREMENT;
+
+
+
